@@ -5,7 +5,7 @@
 
 
 <x-page-header>
-    Biz haqimizda
+    Biz haqimizdaз
 </x-page-header>
 
 
