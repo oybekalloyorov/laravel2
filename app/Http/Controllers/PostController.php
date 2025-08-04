@@ -12,27 +12,14 @@ class PostController extends Controller
 
     public function index()
     {
-        // $posts = DB::table('posts')->where('title', 'title 1')->get(); faqat title 1 bo'lgan postlarni olish uchun
+        $posts = Post::all();
 
-        // $posts = DB::table('posts')->get()->pluck('title'); // barcha postlarning title larini olish uchun);
+        return view('posts.index')->with('posts', $posts);
 
-        // $posts = DB::table('posts')->get()->chunk(2); // postlarni 2 ta qilib bo'lib olish uchun
 
-        // $posts = DB::table('posts')->whereMonth('updated_at', '08')->get(); // faqat 8-oyda yangilangan postlarni olish uchun
-        // $posts = DB::table('posts')->latest()->get(); // barcha postlarni oxirgi tartibida olish yani created_at bo'yicha
-
-        // $posts = DB::table('posts')->insert([
-        //     'title' => 'New Post 123',
-        //     'content' => 'This is the content of the new post. 123',
-        //     'short_content' => 'This is the content of the new post. 123',
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]); // yangi post qo'shish
-
-        $posts = DB::table('posts')->where('id', 1)->delete(); // id si 1 bo'lgan postni o'chirish
-        dd($posts);
-
-        return "Success";
+        // return view('posts.index', [
+        //     'posts' => Post::all()
+        // ]); // or you can use DB::table('posts')->get();
 
     }
 
@@ -47,9 +34,15 @@ class PostController extends Controller
         //
     }
 
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+        // $post = Post::find($id);
+
+        // return view('posts.show', [$post]);
+        return view('posts.show')->with([
+            'post'=> $post,
+            'recent_posts' => Post::latest()->get()->except($post->id)->take(5)
+        ]);
     }
 
     public function edit(string $id)
