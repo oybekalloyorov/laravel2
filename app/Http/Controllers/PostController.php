@@ -3,66 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\DB as DB;
 
 class PostController extends Controller
 {
 
     public function index()
     {
+        // $posts = DB::table('posts')->where('title', 'title 1')->get(); faqat title 1 bo'lgan postlarni olish uchun
 
-        // -------------------------------------------- start
-        // $posts = Post::where('title', 'title11')->get();
-        // $post = Post::find(1);
+        // $posts = DB::table('posts')->get()->pluck('title'); // barcha postlarning title larini olish uchun);
 
-        // dd($post);
-        // -------------------------------------------- end
+        // $posts = DB::table('posts')->get()->chunk(2); // postlarni 2 ta qilib bo'lib olish uchun
 
-        // $newPost = new Post();
-        // $newPost->title = 'new post 4';
-        // $newPost->short_content = 'Short content of new post 1';
-        // $newPost->content = 'Content of new post 1';
-        // $newPost->photo = '/storage/newPost.png';
+        // $posts = DB::table('posts')->whereMonth('updated_at', '08')->get(); // faqat 8-oyda yangilangan postlarni olish uchun
+        // $posts = DB::table('posts')->latest()->get(); // barcha postlarni oxirgi tartibida olish yani created_at bo'yicha
 
-        // $newPost->save();
+        // $posts = DB::table('posts')->insert([
+        //     'title' => 'New Post 123',
+        //     'content' => 'This is the content of the new post. 123',
+        //     'short_content' => 'This is the content of the new post. 123',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]); // yangi post qo'shish
 
-        // $newPost = Post::create([
-        //     'title' => '5',
-        //     'short_content' => 'Short',
-        //     'content' => 'Content 123',
-        //     'photo' => 'photo.jpg'
-        // ]);
+        $posts = DB::table('posts')->where('id', 1)->delete(); // id si 1 bo'lgan postni o'chirish
+        dd($posts);
 
-        // ----------------Update qilish start
-        // $post = Post::find(4);
-        // $post->title = 'O\'zgartirilgan Sarlavha';
-        // $post->save();
+        return "Success";
 
-
-        // $post = Post::find(4)->update(['title' => '222 O\'zgartirilgan Sarlavha']);
-
-        // ----------------Update qilish end
-
-        // ------------------- Delete qilish start
-
-        // $post = Post::where('id', 5)->first();
-        // $post->delete();
-
-        // yoki destroy qilib o'chirish
-        // Post::destroy(5);
-
-        // return 'Deleted';
-        // return view('posts.index');
-
-        // ------------------- Soft Delete qilish start
-        // Buning uchun Post modelida SoftDeletes traitini qo'shish kerak
-        // va migration faylida deleted_at ustunini qo'shish kerak
-
-        // $post = Post::destroy(3); // id si 3 bo'lgan postni o'chirish
-
-        $post = Post::withTrashed()->find(3)->restore(); // Soft delete qilingan postni ortiga qaytarish
-        $post = Post::all(); // hamma postlarni olish
-        dd($post);
     }
 
     public function create()
