@@ -91,8 +91,13 @@ class PostController extends Controller
         return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        if (isset($post->photo)) {
+                Storage::delete($post->photo);
+            }
+        $post->delete();
+
+        return redirect()->route('posts.index');
     }
 }
