@@ -12,23 +12,39 @@
                 <div class="w-50 py-4">
                     <div class="contact-form">
                         <div id="success"></div>
+                        {{-- @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif --}}
                         <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="control-group">
-                                <input type="text" class="form-control p-4" name="title" placeholder="Sarlavha" required="required" />
-                                <p class="help-block text-danger"></p>
+                            <div class="control-group mb-4">
+                                <input type="text" class="form-control p-4" name="title" value="{{ old('title') }}" placeholder="Sarlavha"  />
+                                @error('title')
+                                    <p class="help-block text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             {{-- <div class="control-group">
                                 <input type="image" class="form-control p-4" id="subject" placeholder="Rasm" />
                                 <p class="help-block text-danger"></p>
                             </div> --}}
-                            <div class="control-group">
-                                <textarea class="form-control p-4" rows="3" name="short_content" placeholder="Qisqacha mazmuni" required="required" ></textarea>
-                                <p class="help-block text-danger"></p>
+                            <div class="control-group mb-4">
+                                <textarea class="form-control p-4" rows="3" name="short_content"  placeholder="Qisqacha mazmuni" >{{ old('short_content') }}</textarea>
+                                @error('short_content')
+                                    <p class="help-block text-danger">{{ $message }}</p>
+
+                                @enderror
                             </div>
-                            <div class="control-group">
-                                <textarea class="form-control p-4" rows="6" name="content" placeholder="Ma'qola" required="required" ></textarea>
-                                <p class="help-block text-danger"></p>
+                            <div class="control-group mb-4">
+                                <textarea class="form-control p-4" rows="6" name="content"  placeholder="Ma'qola"> {{ old('content') }} </textarea>
+                                @error('content')
+                                    <p class="help-block text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div>
                                 <button class="btn btn-primary btn-block py-3 px-5" type="submit">Saqlash</button>

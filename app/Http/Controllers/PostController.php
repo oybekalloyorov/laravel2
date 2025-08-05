@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -29,8 +30,10 @@ class PostController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
+
+
         $post = Post::create([
             'title' => $request->input('title'),
             'short_content' => $request->input('short_content'),
