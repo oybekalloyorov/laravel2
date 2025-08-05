@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained(); // Foreign key for user_id
             $table->text('title');
             $table->text('short_content');
             $table->text('content');
             $table->string('photo')->nullable();
             $table->timestamps();
             $table->softDeletes(); // Soft delete qo'shish uchun yani bazaga deleted_at ustunini qo'shadi
-            
+
         });
     }
 
