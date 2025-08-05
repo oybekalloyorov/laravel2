@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'photo', // Added photo attribute
     ];
 
     /**
@@ -53,5 +54,5 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }   
+    }
 }

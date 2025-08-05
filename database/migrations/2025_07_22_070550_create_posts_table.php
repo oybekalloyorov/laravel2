@@ -19,8 +19,6 @@ return new class extends Migration
             $table->text('content');
             $table->string('photo')->nullable();
             $table->timestamps();
-            $table->softDeletes(); // Soft delete qo'shish uchun yani bazaga deleted_at ustunini qo'shadi
-
         });
     }
 
