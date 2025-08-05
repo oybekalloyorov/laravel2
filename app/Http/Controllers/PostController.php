@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB as DB;
@@ -61,14 +63,32 @@ class PostController extends Controller
         ]);
     }
 
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit')->with(['post' => $post]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //
+        if ($request->hasFile('photo')) {
+
+            if (isset($post->photo)) {
+                // Delete the old photo if it exists
+                Storage::delete($post->photo);
+            }
+            $name = $request->file('photo')->getClientOriginalName();
+
+            $path = $request->file('photo')->storeAs('post-photos', $name); // 'public' disk is used by default,
+        }
+
+        $post->update([
+            'title' => $request->input('title'),
+            'short_content' => $request->input('short_content'),
+            'content' => $request->input('content'),
+            'photo' => $path ?? $post->photo,
+        ]);
+
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     public function destroy(string $id)
