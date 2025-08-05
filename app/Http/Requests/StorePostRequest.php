@@ -34,6 +34,7 @@ class StorePostRequest extends FormRequest
             'title' => 'required|max:255',
             'short_content' => 'required|max:255',
             'content' => 'required',
+            'photo' => 'nullable|image|image|max:2048', // 'image' validation rule checks if the file is an image
             // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }

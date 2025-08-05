@@ -32,12 +32,19 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        if ($request->hasFile('photo')) {
+            $name = $request->file('photo')->getClientOriginalName();
+
+            $path = $request->file('photo')->storeAs('post-photos', $name); // 'public' disk is used by default,
+            // $path = $request->file('photo')->store('post-photos', 'local'); // 'local' disk is used here
+        }
 
 
         $post = Post::create([
             'title' => $request->input('title'),
             'short_content' => $request->input('short_content'),
             'content' => $request->input('content'),
+            'photo' => $path ?? null,
             // 'image' => $request->file('image')->store('posts', 'public')
         ]);
         return redirect()->route('posts.index');
