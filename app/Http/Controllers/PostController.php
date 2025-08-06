@@ -7,19 +7,23 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB as DB;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class PostController extends BaseController
 {
+    use AuthorizesRequests;
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
+        $this->authorizeResource(Post::class, 'post');
         // $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
 
@@ -91,11 +95,22 @@ class PostController extends BaseController
 
     public function edit(Post $post)
     {
+        // if(! FacadesGate::allows('update-post', $post)) {
+        //     abort(403, 'You do not have permission to edit this post.');
+        // }
+        // yoki
+        // FacadesGate::authorize('update-post', $post);
+        // FacadesGate::authorize('update', $post);
+        // $this->authorize('update', $post);
+
         return view('posts.edit')->with(['post' => $post]);
     }
 
     public function update(StorePostRequest $request, Post $post)
     {
+        // FacadesGate::authorize('update-post', $post);
+        // FacadesGate::authorize('update', $post);
+
         if ($request->hasFile('photo')) {
 
             if (isset($post->photo)) {
@@ -119,6 +134,8 @@ class PostController extends BaseController
 
     public function destroy(Post $post)
     {
+        // FacadesGate::authorize('update-post', $post);
+
         if (isset($post->photo)) {
                 Storage::delete($post->photo);
             }
