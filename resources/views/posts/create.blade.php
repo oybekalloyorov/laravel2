@@ -31,10 +31,18 @@
                                 @enderror
                             </div>
                             <div class="control-group mb-4">
-
+                                <label >Kategoriya</label>
                                 <select name="category_id" >
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="control-group mb-4">
+                                <label >Taglar</label>
+                                <select name="tags[]" multiple>
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

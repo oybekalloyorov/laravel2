@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\DB;
@@ -31,12 +33,14 @@ class PostController extends Controller
     {
         return view('posts.create')->with([
             'categories' => Category::all(),
+            'tags' => Tag::all(),
         ]);
     }
 
 
     public function store(StorePostRequest $request)
     {
+        // dd($request);
         if ($request->hasFile('photo')) {
             $name = $request->file('photo')->getClientOriginalName();
 
@@ -54,6 +58,13 @@ class PostController extends Controller
             'photo' => $path ?? null,
             // 'image' => $request->file('image')->store('posts', 'public')
         ]);
+
+        if(isset($request->tags)) {
+
+            foreach ($request->tags as $tag) {
+                $post->tags()->attach($tag);
+            }
+        }
         return redirect()->route('posts.index');
     }
 
@@ -64,7 +75,10 @@ class PostController extends Controller
         // return view('posts.show', [$post]);
         return view('posts.show')->with([
             'post'=> $post,
-            'recent_posts' => Post::latest()->get()->except($post->id)->take(5)
+            'recent_posts' => Post::latest()->get()->except($post->id)->take(5),
+            'comments' => Comment::class,
+            'categories' => Category::all(),
+            'tags' => Tag::all(),
         ]);
     }
 
