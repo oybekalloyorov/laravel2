@@ -22,6 +22,7 @@ Route::get('test', [TestController::class, 'test'])->name('test');
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::resources([
     'posts' => PostController::class,
