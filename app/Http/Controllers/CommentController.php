@@ -21,9 +21,9 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $comment = Comment::create([
-            'post_id' => $request->post_id,
-            'user_id' => 1,
             'body' => $request->body,
+            'post_id' => $request->post_id,
+            'user_id' => auth()->id(),
         ]);
         // --------------------------- ikkalasi bitta ishni bajaradi ------------------
 

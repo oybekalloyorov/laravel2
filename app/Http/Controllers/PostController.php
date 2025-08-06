@@ -57,7 +57,7 @@ class PostController extends BaseController
 
 
         $post = Post::create([
-            'user_id' => 1, // Assuming user with ID 1 exists
+            'user_id' => auth()->user()->id, // Get the authenticated user's ID
             'category_id' => $request->input('category_id'), // Get category ID from the request
             'title' => $request->input('title'),
             'short_content' => $request->input('short_content'),
