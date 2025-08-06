@@ -13,8 +13,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB as DB;
 
-class PostController extends Controller
+use Illuminate\Routing\Controller as BaseController;
+
+class PostController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
 
     public function index()
     {
