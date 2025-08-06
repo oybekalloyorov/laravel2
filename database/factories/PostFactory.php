@@ -19,6 +19,7 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => 1, // Assuming user with ID 1 exists
+            'category_id' => rand(1, 5), // Assuming categories with IDs 1 to 5 exist
             // 'user_id' => User::Factory(), // Using factory to create a user
             'title' => $this->faker->sentence,
             'short_content' => $this->faker->text(50),
