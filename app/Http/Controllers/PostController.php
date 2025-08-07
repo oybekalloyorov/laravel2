@@ -25,6 +25,7 @@ class PostController extends BaseController
     {
         $this->middleware('auth')->except(['index', 'show']);
         $this->authorizeResource(Post::class, 'post');
+        // $this->middleware('password.confirm')->only(['edit']);
         // $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
 
@@ -78,7 +79,7 @@ class PostController extends BaseController
             }
         }
 
-        PostCreated::dispatch($post); // Dispatch the event after creating the post
+        PostCreated::dispatch($post);   // Dispatch the event after creating the post
 
         return redirect()->route('posts.index');
     }
