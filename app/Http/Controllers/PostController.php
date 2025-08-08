@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Notifications\PostCreated as NotificationsPostCreated;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Cache\Store;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Gate as FacadesGate;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends BaseController
 {
@@ -85,6 +87,8 @@ class PostController extends BaseController
 
         // UploadBigFile::dispatch($request->file('photo'));
         ChangePost::dispatch($post);
+
+        Notification::send(auth()->user(), new NotificationsPostCreated($post));
 
         return redirect()->route('posts.index');
     }
