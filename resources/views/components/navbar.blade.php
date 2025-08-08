@@ -6,15 +6,21 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        {{-- {{ dump($current_locale) }} --}}
         <div class="navbar-nav mr-auto py-0">
-            <a href="/" class="nav-item nav-link active">Bosh Sahifa</a>
-            <a href="{{ route('about') }}" class="nav-item nav-link">Biz haqimizda</a>
+            <a href="/" class="nav-item nav-link active">{{ __('Bosh Sahifa') }}</a>
+            <a href="{{ route('about') }}" class="nav-item nav-link">{{ __('Biz haqimizda') }}</a>
             <a href="{{ route('services') }}" class="nav-item nav-link">Xizmatlar</a>
             <a href="{{ route('projects') }}" class="nav-item nav-link">Portfolio</a>
             <a href="{{ route('posts.index') }}" class="nav-item nav-link">Blog</a>
             <a href="{{ route('contact') }}" class="nav-item nav-link">Aloqa</a>
             <a href="{{ route('test') }}" class="nav-item nav-link">Test</a>
         </div>
+        @foreach ($all_locales as $locale)
+            <a href="{{ route('locale_change', ['locale' => $locale]) }}" class="btn btn-primary mr-3 d-none d-lg-block">
+                {{ $locale }}
+            </a>
+        @endforeach
         @auth
         @php
             $unread = auth()->user()->unreadNotifications()->count()

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 // yuqoridagilarni ornini bosadi
 // Route::resource('posts', PostController::class);
+
+Route::get('language/{locale}', [LanguageController::class, 'change_locale'])->name('locale_change');
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
