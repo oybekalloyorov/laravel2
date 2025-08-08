@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Dflydev\DotAccessData\Data;
+use Illuminate\Container\Attributes\Database;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
 
@@ -10,7 +12,7 @@ class NotificationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -26,6 +28,12 @@ class NotificationController extends Controller
     {
         $notification->markAsRead();
 
+        return redirect()->back();
+    }
+
+    public function readAll()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
         return redirect()->back();
     }
 

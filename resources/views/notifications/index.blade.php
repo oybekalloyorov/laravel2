@@ -16,6 +16,11 @@
                     <h1 class="section-title mb-3">Xabarnomalar</h1>
                 </div>
             </div>
+            <div class="d-flex w-100 mb-2">
+                <a href="{{ route('notifications.readAll') }}" class="btn btn-warning btn-lg ml-auto mr-5">
+                    <span class="glyphicon glyphicon-book"></span> Hammasini o'qish
+                </a>
+            </div>
                 @foreach ($notifications as $notification)
                     <div class="border mb-3 p-4 rounded">
                         <div class="position-relative mb-4">
