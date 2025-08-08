@@ -38,10 +38,10 @@ class PostController extends BaseController
     {
         Cache::pull('posts'); // Clear the cache if needed, or you can comment this line out
         // $posts = Post::latest()->paginate(9);
-        // $posts = Post::latest()->get();
-        $posts = Cache::remember('posts', now()->addSeconds(30), function () {
-            return Post::latest()->get();
-        });
+        $posts = Post::latest()->get();
+        // $posts = Cache::remember('posts', now()->addSeconds(30), function () {
+        //     return Post::latest()->get();
+        // });
 
         return view('posts.index')->with('posts', $posts);
 

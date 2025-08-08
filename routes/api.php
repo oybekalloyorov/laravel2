@@ -13,4 +13,5 @@ Route::get('/posts', function () {
     $posts = Cache::remember('posts', 120, function () {
         return Post::latest()->get();
     });
+    return response()->json($posts);
 });
