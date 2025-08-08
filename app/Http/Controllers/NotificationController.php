@@ -37,6 +37,14 @@ class NotificationController extends Controller
         return redirect()->back();
     }
 
+    public function delete(DatabaseNotification $notification)
+
+    {
+        $notification->delete();
+        // auth()->user()->notifications()->delete();
+        return redirect()->back();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Notifications\PostCreated as NotificationsPostCreated;
 use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,12 @@ class PostController extends BaseController
 
     public function index()
     {
-        $posts = Post::latest()->paginate(9);
+        Cache::pull('posts'); // Clear the cache if needed, or you can comment this line out
+        // $posts = Post::latest()->paginate(9);
+        // $posts = Post::latest()->get();
+        $posts = Cache::remember('posts', now()->addSeconds(30), function () {
+            return Post::latest()->get();
+        });
 
         return view('posts.index')->with('posts', $posts);
 

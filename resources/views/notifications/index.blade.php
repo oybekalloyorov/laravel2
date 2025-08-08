@@ -28,6 +28,13 @@
                                 <div class="blog-date">
                                     <h4 class="font-weight-bold mb-n1">New</h4>
                                 </div>
+                            @else
+                            <div class="d-flex w-100 mb-2">
+                                <a href="{{ route('notifications.delete', ['notification' => $notification->id ]) }}" class="btn btn-warning ml-auto ">
+                                    <span class="glyphicon glyphicon-book"></span><i class="material-icons">delete</i>
+                                </a>
+                            </div>
+
                             @endif
                         </div>
 

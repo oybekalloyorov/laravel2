@@ -30,6 +30,7 @@ Route::post('register', [AuthController::class, 'register_store'])->name('regist
 Route::middleware('auth')->group(function () {
     Route::get('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
     Route::get('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.readAll');
+    Route::get('notifications/{notification}/delete', [NotificationController::class, 'delete'])->name('notifications.delete');
 });
 
 Route::resources([
