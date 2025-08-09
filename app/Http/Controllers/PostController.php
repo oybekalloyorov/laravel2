@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Gate as FacadesGate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class PostController extends BaseController
@@ -36,6 +37,16 @@ class PostController extends BaseController
 
     public function index()
     {
+        $message = 'Bu log qilinmoqda';
+        Log::emergency($message);
+        Log::alert($message);
+        Log::critical($message);
+        Log::error($message);
+        Log::warning($message);
+        Log::notice($message);
+        Log::info($message);
+        Log::debug($message);
+        Log::info('Showing the user profile for user: '. 4);
         // Cache::pull('posts'); // Clear the cache if needed, or you can comment this line out
         $posts = Post::latest()->paginate(9);
         // $posts = Post::latest()->get();
