@@ -42,15 +42,15 @@ class PostController extends BaseController
         //     return $post->id > 100;
         // });
 
-        $posts = Post::cursor()->filter(function ($post) {
-            return $post->id > 100;
-        });
+        // $posts = Post::cursor()->filter(function ($post) {
+        //     return $post->id > 100;
+        // });
 
-        $text = '';
-        foreach ($posts as $post) {
-            $text .= $post->id;
-        }
-        return $text;
+        // $text = '';
+        // foreach ($posts as $post) {
+        //     $text .= $post->id;
+        // }
+        // return $text;
         // $response = Http::get('https://example.com'); // Bu http so'rovlar uchun ishlatiladi
 
         // dd($response);
