@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <link href="/css/style.css" rel="stylesheet">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
