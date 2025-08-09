@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function main(){
+
+        // session('success', 'value');
+        // dd(session()->all());
         return view('main');
     }
     public function about(){

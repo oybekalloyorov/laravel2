@@ -36,9 +36,9 @@ class PostController extends BaseController
 
     public function index()
     {
-        Cache::pull('posts'); // Clear the cache if needed, or you can comment this line out
-        // $posts = Post::latest()->paginate(9);
-        $posts = Post::latest()->get();
+        // Cache::pull('posts'); // Clear the cache if needed, or you can comment this line out
+        $posts = Post::latest()->paginate(9);
+        // $posts = Post::latest()->get();
         // $posts = Cache::remember('posts', now()->addSeconds(30), function () {
         //     return Post::latest()->get();
         // });
@@ -96,7 +96,7 @@ class PostController extends BaseController
 
         Notification::send(auth()->user(), new NotificationsPostCreated($post));
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with(['status' => 'Success!']);
     }
 
     public function show(Post $post)

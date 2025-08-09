@@ -11,6 +11,23 @@
 <!-- Blog Start -->
     <div class="container-fluid py-5">
         <div class="container">
+
+            @if (session('status'))
+                @if (session('status') == 'Success!')
+                    <div class="alert alert-success" role="alert">
+                        {{ __('Yaratildi')}}
+                    </div>
+                @elseif (session('status') == 'error')
+                    <div class="alert alert-danger" role="alert">
+                        {{ __('Xatolik yuz berdi')}}
+                    </div>
+                <div class="alert alert-danger" role="alert">
+                    {{ __('Xato') }}
+                </div>
+                @else
+                @endif
+            @endif
+
             <div class="row align-items-end mb-4">
                 <div class="col-lg-6">
                     <h6 class="text-secondary font-weight-semi-bold text-uppercase mb-3">Latest Blog</h6>
@@ -44,7 +61,7 @@
                         <a class="btn btn-sm btn-primary py-2" href="{{ route('posts.show', ['post' => $post->id ]) }}">O'qish</a>
                     </div>
                 @endforeach
-                    {{-- {{$posts->links()}} --}}
+                    {{$posts->links()}}
 
                 {{-- <div class="col-12">
                     <nav aria-label="Page navigation">
