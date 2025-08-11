@@ -58,7 +58,13 @@
                         </div>
                         <h5 class="font-weight-medium mb-2">{{$post->title}}</h5>
                         <p class="mb-4">{{ $post->short_content }}</p>
-                        <a class="btn btn-sm btn-primary py-2" href="{{ route('posts.show', ['post' => $post->id ]) }}">O'qish</a>
+                        {{-- @if (auth()->user()->role->name == 'admin' ) // Agar koplikda bo'ladigan bo'lsa --}}
+                        @if (auth()->user()->hasRole('admin') )
+                            <a class="btn btn-sm btn-primary py-2" href="{{ route('posts.show', ['post' => $post->id ]) }}">
+                                O'qish
+                            </a>
+                        @endif
+
                     </div>
                 @endforeach
                     {{$posts->links()}}

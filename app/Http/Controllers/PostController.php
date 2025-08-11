@@ -9,20 +9,16 @@ use App\Jobs\UploadBigFile;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\Tag;
 use App\Notifications\PostCreated as NotificationsPostCreated;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Cache\Store;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB as DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Gate as FacadesGate;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class PostController extends BaseController
@@ -73,6 +69,9 @@ class PostController extends BaseController
 
     public function create()
     {
+        // FacadesGate::authorize('create-post', Role::find(3));
+        FacadesGate::authorize('create-post', Role::where('name', 'editor')->first());
+
         return view('posts.create')->with([
             'categories' => Category::all(),
             'tags' => Tag::all(),

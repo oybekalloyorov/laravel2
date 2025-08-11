@@ -14,11 +14,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'john',
             'email' => 'john@axample.com',
             'password' => Hash::make('secret'),
         ]);
+
+        $user->roles()->attach([1,3]); // Assuming 'admin' role has ID 1, 3
+
+        $user2 = User::create([
+            'name' => 'Abdulloh',
+            'email' => 'abdulloh@axample.com',
+            'password' => Hash::make('secret'),
+        ]);
+
+        $user2->roles()->attach([2]);
 
         // User::factory(10)->create();
         // User::factory()->create([

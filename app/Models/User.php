@@ -55,4 +55,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function roles()
+
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($roleName)
+    {
+        foreach($this->roles as $role) {
+            if ($role->name == $roleName) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

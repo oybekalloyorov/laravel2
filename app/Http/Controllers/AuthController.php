@@ -49,10 +49,12 @@ class AuthController extends Controller
             'password_confirmation' => 'required|same:password',
         ]);
         $validated['password'] = Hash::make($validated['password']);
-        
+
         $user = User::create($validated);
 
-        Auth::login($user);
+        $user->roles()->attach([3]); // Assuming 'editor' role has ID 2
+
+        auth()::login($user);
 
         return redirect('/')->with('success', 'Registration successful! You are now logged in.');
     }
